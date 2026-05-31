@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国旅游攻略 - 探索美丽中国</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">🇨🇳 中国旅游攻略</div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">首页</a></li>
+                <li><a href="#destinations">热门目的地</a></li>
+                <li><a href="#features">攻略分类</a></li>
+                <li><a href="#submit">投稿攻略</a></li>
+                <li><a href="https://www.mct.gov.cn/" target="_blank" rel="noopener noreferrer">官方旅游网</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>探索美丽中国</h1>
+            <p>发现中国的美食、美景与文化，开启您的完美旅程</p>
+            <button class="btn-primary">开始探索</button>
+        </div>
+        <div class="hero-image">
+            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=中国壮丽风景，长城，故宫，山水美景，旅游景点&image_size=landscape_16_9" alt="中国风景">
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2>旅游攻略六要素</h2>
+        <div class="features-grid">
+            <div class="feature-card" data-category="food">
+                <div class="feature-icon">🍜</div>
+                <h3>吃</h3>
+                <p>当地特色美食、饮食体验</p>
+            </div>
+            <div class="feature-card" data-category="stay">
+                <div class="feature-icon">🏨</div>
+                <h3>住</h3>
+                <p>酒店、民宿、住宿休息</p>
+            </div>
+            <div class="feature-card" data-category="transport">
+                <div class="feature-icon">🚗</div>
+                <h3>行</h3>
+                <p>交通往返、景区内出行</p>
+            </div>
+            <div class="feature-card" data-category="tour">
+                <div class="feature-icon">🏛️</div>
+                <h3>游</h3>
+                <p>景点打卡、观景观光</p>
+            </div>
+            <div class="feature-card" data-category="shop">
+                <div class="feature-icon">🛍️</div>
+                <h3>购</h3>
+                <p>特产、纪念品、伴手礼</p>
+            </div>
+            <div class="feature-card" data-category="entertainment">
+                <div class="feature-icon">🎭</div>
+                <h3>娱</h3>
+                <p>游玩项目、休闲娱乐</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="destinations" class="destinations">
+        <h2>热门旅游目的地</h2>
+        <div class="destinations-grid">
+            <div class="destination-card" data-destination="beijing">
+                <div class="destination-image">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=北京故宫，天安门，长城，中国首都，传统建筑&image_size=square_hd" alt="北京">
+                </div>
+                <div class="destination-info">
+                    <h3>北京</h3>
+                    <p>古都风采，现代繁华</p>
+                    <button class="btn-secondary">查看攻略</button>
+                </div>
+            </div>
+            <div class="destination-card" data-destination="shanghai">
+                <div class="destination-image">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=上海外滩，东方明珠，现代化城市夜景&image_size=square_hd" alt="上海">
+                </div>
+                <div class="destination-info">
+                    <h3>上海</h3>
+                    <p>国际大都市，时尚之都</p>
+                    <button class="btn-secondary">查看攻略</button>
+                </div>
+            </div>
+            <div class="destination-card" data-destination="hangzhou">
+                <div class="destination-image">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=杭州西湖，断桥残雪，江南水乡风景&image_size=square_hd" alt="杭州">
+                </div>
+                <div class="destination-info">
+                    <h3>杭州</h3>
+                    <p>人间天堂，西湖美景</p>
+                    <button class="btn-secondary">查看攻略</button>
+                </div>
+            </div>
+            <div class="destination-card" data-destination="chengdu">
+                <div class="destination-image">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=成都大熊猫，火锅，川菜，宽窄巷子&image_size=square_hd" alt="成都">
+                </div>
+                <div class="destination-info">
+                    <h3>成都</h3>
+                    <p>天府之国，熊猫故乡</p>
+                    <button class="btn-secondary">查看攻略</button>
+                </div>
+            </div>
+            <div class="destination-card" data-destination="xian">
+                <div class="destination-image">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=西安兵马俑，古城墙，钟鼓楼，历史文化&image_size=square_hd" alt="西安">
+                </div>
+                <div class="destination-info">
+                    <h3>西安</h3>
+                    <p>千年古都，丝路起点</p>
+                    <button class="btn-secondary">查看攻略</button>
+                </div>
+            </div>
+            <div class="destination-card" data-destination="sanya">
+                <div class="destination-image">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=三亚海滨度假，蓝天碧海白沙滩，热带风光&image_size=square_hd" alt="三亚">
+                </div>
+                <div class="destination-info">
+                    <h3>三亚</h3>
+                    <p>热带天堂，海滨度假</p>
+                    <button class="btn-secondary">查看攻略</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="submit" class="submit-section">
+        <h2>📝 投稿旅游攻略</h2>
+        <div class="submit-container">
+            <form id="submitForm" class="submit-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>您的昵称 *</label>
+                        <input type="text" id="authorName" required placeholder="请输入您的昵称">
+                    </div>
+                    <div class="form-group">
+                        <label>目的地城市 *</label>
+                        <select id="citySelect" required>
+                            <option value="">请选择城市</option>
+                            <option value="beijing">北京</option>
+                            <option value="shanghai">上海</option>
+                            <option value="hangzhou">杭州</option>
+                            <option value="chengdu">成都</option>
+                            <option value="xian">西安</option>
+                            <option value="sanya">三亚</option>
+                            <option value="other">其他城市</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>攻略分类 *</label>
+                        <select id="categorySelect" required>
+                            <option value="">请选择分类</option>
+                            <option value="food">🍜 吃 - 美食</option>
+                            <option value="stay">🏨 住 - 住宿</option>
+                            <option value="transport">🚗 行 - 交通</option>
+                            <option value="tour">🏛️ 游 - 景点</option>
+                            <option value="shop">🛍️ 购 - 购物</option>
+                            <option value="entertainment">🎭 娱 - 娱乐</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>推荐名称 *</label>
+                        <input type="text" id="itemName" required placeholder="如：北京烤鸭">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>详细描述 *</label>
+                    <textarea id="itemDesc" required rows="4" placeholder="请描述您推荐的理由、特色、体验感受等..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">提交攻略</button>
+                    <button type="reset" class="btn-secondary">重置表单</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="submitted-guides">
+            <h3>💡 用户投稿攻略</h3>
+            <div id="userGuidesList" class="guides-list"></div>
+        </div>
+    </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>关于我们</h4>
+                <p>专业的中国旅游攻略平台，为您提供最全面的旅游信息</p>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <p>邮箱: info@chinatravel.com</p>
+                <p>电话: 400-888-8888</p>
+            </div>
+            <div class="footer-section">
+                <h4>关注我们</h4>
+                <p>微信公众号：中国旅游攻略</p>
+                <p>微博：@中国旅游攻略</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 中国旅游攻略 版权所有</p>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>
