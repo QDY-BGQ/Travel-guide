@@ -480,6 +480,250 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
+let currentUser = null;
+let favorites = [];
+
+function initAuth() {
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        updateUserDisplay();
+        loadFavorites();
+    }
+}
+
+function updateUserDisplay() {
+    const loginBtn = document.getElementById('loginBtn');
+    const userDisplay = document.getElementById('userDisplay');
+    
+    if (currentUser) {
+        loginBtn.style.display = 'none';
+        userDisplay.style.display = 'inline';
+        userDisplay.innerHTML = `${currentUser.nickname} <button onclick="logout()" class="btn-logout">退出</button>`;
+    } else {
+        loginBtn.style.display = 'inline';
+        userDisplay.style.display = 'none';
+    }
+}
+
+function logout() {
+    currentUser = null;
+    localStorage.removeItem('currentUser');
+    updateUserDisplay();
+    loadFavorites();
+    showToast('已退出登录');
+}
+
+const loginModal = document.getElementById('loginModal');
+const registerModal = document.getElementById('registerModal');
+const loginBtn = document.getElementById('loginBtn');
+const registerBtn = document.getElementById('registerBtn');
+const backToLoginBtn = document.getElementById('backToLoginBtn');
+const closeLoginBtn = document.querySelector('.close-login');
+const closeRegisterBtn = document.querySelector('.close-register');
+
+loginBtn.addEventListener('click', () => {
+    loginModal.style.display = 'block';
+});
+
+registerBtn.addEventListener('click', () => {
+    loginModal.style.display = 'none';
+    registerModal.style.display = 'block';
+});
+
+backToLoginBtn.addEventListener('click', () => {
+    registerModal.style.display = 'none';
+    loginModal.style.display = 'block';
+});
+
+closeLoginBtn.addEventListener('click', () => {
+    loginModal.style.display = 'none';
+});
+
+closeRegisterBtn.addEventListener('click', () => {
+    registerModal.style.display = 'none';
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+    }
+    if (e.target === registerModal) {
+        registerModal.style.display = 'none';
+    }
+});
+
+document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.username === username && u.password === password);
+    
+    if (user) {
+        currentUser = user;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        updateUserDisplay();
+        loadFavorites();
+        loginModal.style.display = 'none';
+        showToast('登录成功！');
+        document.getElementById('loginForm').reset();
+    } else {
+        showToast('用户名或密码错误');
+    }
+});
+
+document.getElementById('registerForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('regUsername').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const nickname = document.getElementById('regNickname').value.trim();
+    
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    
+    if (users.find(u => u.username === username)) {
+        showToast('用户名已存在');
+        return;
+    }
+    
+    const newUser = {
+        id: Date.now(),
+        username: username,
+        password: password,
+        nickname: nickname
+    };
+    
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    
+    currentUser = newUser;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    updateUserDisplay();
+    registerModal.style.display = 'none';
+    showToast('注册成功！');
+    document.getElementById('registerForm').reset();
+});
+
+function loadFavorites() {
+    if (!currentUser) {
+        const favoritesList = document.getElementById('favoritesList');
+        favoritesList.innerHTML = '<p class="empty-message" style="text-align:center;color:#666;padding:40px;">登录后可查看你的收藏</p>';
+        return;
+    }
+    
+    const allFavorites = JSON.parse(localStorage.getItem('favorites') || '{}');
+    favorites = allFavorites[currentUser.id] || [];
+    
+    renderFavorites();
+}
+
+function renderFavorites() {
+    const favoritesList = document.getElementById('favoritesList');
+    
+    if (favorites.length === 0) {
+        favoritesList.innerHTML = '<p class="empty-message" style="text-align:center;color:#666;padding:40px;">还没有收藏任何攻略</p>';
+        return;
+    }
+    
+    favoritesList.innerHTML = favorites.map(fav => `
+        <div class="favorite-card">
+            <div class="favorite-header">
+                <span class="guide-icon">${categoryIcons[fav.category]}</span>
+                <span class="guide-city">${cityNames[fav.city]}</span>
+            </div>
+            <h4>${fav.itemName}</h4>
+            <p>${fav.itemDesc}</p>
+            <div class="favorite-footer">
+                <span class="guide-author">✍️ ${fav.author}</span>
+                <button onclick="removeFavorite(${fav.id})" class="btn-delete">删除</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addFavorite(guide) {
+    if (!currentUser) {
+        showToast('请先登录');
+        return;
+    }
+    
+    const allFavorites = JSON.parse(localStorage.getItem('favorites') || '{}');
+    const userFavorites = allFavorites[currentUser.id] || [];
+    
+    if (userFavorites.find(f => f.id === guide.id)) {
+        showToast('已经收藏过了');
+        return;
+    }
+    
+    userFavorites.push(guide);
+    allFavorites[currentUser.id] = userFavorites;
+    localStorage.setItem('favorites', JSON.stringify(allFavorites));
+    
+    favorites = userFavorites;
+    renderFavorites();
+    renderCommunityGuides();
+    showToast('收藏成功！');
+}
+
+function removeFavorite(guideId) {
+    const allFavorites = JSON.parse(localStorage.getItem('favorites') || '{}');
+    const userFavorites = allFavorites[currentUser.id] || [];
+    
+    const index = userFavorites.findIndex(f => f.id === guideId);
+    if (index > -1) {
+        userFavorites.splice(index, 1);
+        allFavorites[currentUser.id] = userFavorites;
+        localStorage.setItem('favorites', JSON.stringify(allFavorites));
+        
+        favorites = userFavorites;
+        renderFavorites();
+        renderCommunityGuides();
+        showToast('已删除收藏');
+    }
+}
+
+function loadCommunityGuides() {
+    renderCommunityGuides();
+}
+
+function renderCommunityGuides() {
+    const communityGuidesList = document.getElementById('communityGuidesList');
+    
+    if (userGuides.length === 0) {
+        communityGuidesList.innerHTML = '<p class="empty-message" style="text-align:center;color:#666;padding:40px;">还没有用户投稿</p>';
+        return;
+    }
+    
+    const allFavorites = JSON.parse(localStorage.getItem('favorites') || '{}');
+    const userFavorites = currentUser ? (allFavorites[currentUser.id] || []) : [];
+    
+    communityGuidesList.innerHTML = userGuides.map(guide => {
+        const isFavorited = userFavorites.find(f => f.id === guide.id);
+        return `
+            <div class="community-card">
+                <div class="community-header">
+                    <span class="guide-icon">${categoryIcons[guide.category]}</span>
+                    <span class="guide-city">${cityNames[guide.city]}</span>
+                </div>
+                <h4>${guide.itemName}</h4>
+                <p>${guide.itemDesc}</p>
+                <div class="community-footer">
+                    <span class="guide-author">✍️ ${guide.author}</span>
+                    <span class="guide-date">📅 ${guide.date}</span>
+                    <button onclick="addFavorite(${JSON.stringify(guide).replace(/"/g, '&quot;')})" 
+                            class="btn-favorite ${isFavorited ? 'favorited' : ''}"
+                            ${isFavorited ? 'disabled' : ''}>
+                        ${isFavorited ? '已收藏' : '收藏'}
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     loadUserGuides();
+    initAuth();
+    loadCommunityGuides();
 });

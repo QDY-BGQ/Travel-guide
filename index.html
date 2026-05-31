@@ -16,8 +16,12 @@
                 <li><a href="#destinations">热门目的地</a></li>
                 <li><a href="#features">攻略分类</a></li>
                 <li><a href="#submit">投稿攻略</a></li>
+                <li><a href="#community">社区投稿</a></li>
+                <li><a href="#favorites">我的收藏</a></li>
                 <li><a href="https://www.mct.gov.cn/" target="_blank" rel="noopener noreferrer">官方旅游网</a></li>
                 <li><a href="#contact">联系我们</a></li>
+                <li><button id="loginBtn" class="btn-login">登录</button></li>
+                <li><span id="userDisplay" class="user-display" style="display:none;"></span></li>
             </ul>
         </nav>
     </header>
@@ -192,6 +196,66 @@
             <div id="userGuidesList" class="guides-list"></div>
         </div>
     </section>
+
+    <section id="community" class="community-section">
+        <h2>🌟 社区投稿</h2>
+        <p class="section-desc">发现其他旅行者的精彩攻略，收藏你感兴趣的内容</p>
+        <div id="communityGuidesList" class="community-guides-grid"></div>
+    </section>
+
+    <section id="favorites" class="favorites-section">
+        <h2>❤️ 我的收藏</h2>
+        <p class="section-desc">管理你收藏的攻略，随时查看或删除</p>
+        <div id="favoritesList" class="favorites-grid">
+            <p class="empty-message" style="text-align:center;color:#666;padding:40px;">登录后可查看你的收藏</p>
+        </div>
+    </section>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content login-modal-content">
+            <span class="close-login">&times;</span>
+            <h2 style="text-align:center;margin-bottom:2rem;color:#c9302c;">用户登录</h2>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label>用户名 *</label>
+                    <input type="text" id="loginUsername" required placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码 *</label>
+                    <input type="password" id="loginPassword" required placeholder="请输入密码">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">登录</button>
+                    <button type="button" id="registerBtn" class="btn-secondary">注册</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content login-modal-content">
+            <span class="close-register">&times;</span>
+            <h2 style="text-align:center;margin-bottom:2rem;color:#c9302c;">用户注册</h2>
+            <form id="registerForm" class="login-form">
+                <div class="form-group">
+                    <label>用户名 *</label>
+                    <input type="text" id="regUsername" required placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码 *</label>
+                    <input type="password" id="regPassword" required placeholder="请输入密码">
+                </div>
+                <div class="form-group">
+                    <label>昵称 *</label>
+                    <input type="text" id="regNickname" required placeholder="请输入昵称">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">注册</button>
+                    <button type="button" id="backToLoginBtn" class="btn-secondary">返回登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div id="modal" class="modal">
         <div class="modal-content">
