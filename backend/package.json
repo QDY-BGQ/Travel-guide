@@ -1,0 +1,24 @@
+{
+  "name": "travel-guide-backend",
+  "version": "1.0.0",
+  "description": "中国旅游攻略网站后端",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "mongoose": "^7.0.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "keywords": ["travel", "guide", "china"],
+  "author": "QDY-BGQ",
+  "license": "MIT"
+}
